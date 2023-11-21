@@ -1,0 +1,38 @@
+#!/bin/sh
+
+CONFIG_PATH=${XDG_CONFIG_HOME:-"$HOME/.config"}
+
+printerr() {
+    echo "$@" 1>&2
+}
+
+dconf_check() {
+    SCRIPT_PATH="$CONFIG_PATH/dconf_manager/inifilter.py"
+    FILTER_PATH="$CONFIG_PATH/dconf_manager/filter.ini"
+    OUTPUT_PATH="$CONFIG_PATH/dconf_manager/dconf.ini"
+
+    if [ ! -x "$(command -v dconf)" ]; then
+        printerr "dconf not found, skipping"
+        return
+    fi
+
+    if [ ! -x "$SCRIPT_PATH" ]; then
+        printerr "inifilter not found, skipping"
+        return
+    fi
+
+    if [ ! -r "$FILTER_PATH" ]; then
+        printerr "dconf filter file not found, skipping"
+        return
+    fi
+
+    if [ ! -x "$(command -v gsettings_cleaner)" ]; then
+        printerr "gsettings_cleaner not found, skipping"
+        return
+    fi
+
+    gsettings_cleaner -q
+    dconf dump / | $SCRIPT_PATH stdin "$FILTER_PATH" "$OUTPUT_PATH"
+}
+
+dconf_check

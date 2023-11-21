@@ -1,0 +1,4 @@
+#! /bin/sh
+
+echo "Install gsettings_cleaner"
+cargo install --git https://github.com/tpiault/gsettings_cleaner/ || exit
