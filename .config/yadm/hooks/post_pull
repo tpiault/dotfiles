@@ -1,0 +1,16 @@
+#! /usr/bin/sh
+
+CONFIG_PATH=${XDG_CONFIG_HOME:-"$HOME/.config"}
+
+printerr() {
+    echo "$@" 1>&2
+}
+
+dconf_load() {
+    OUTPUT_PATH="$CONFIG_PATH/dconf_manager/dconf.ini"
+    if [ -f "$OUTPUT_PATH" ]; then
+        dconf load / < "$OUTPUT_PATH"
+    fi
+}
+
+dconf_load
