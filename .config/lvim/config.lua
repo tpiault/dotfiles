@@ -3,9 +3,11 @@
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
 
+vim.opt.mouse = ""
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+vim.opt.relativenumber = true
 
 lvim.plugins = {
     {
@@ -13,7 +15,7 @@ lvim.plugins = {
         lazy = false,
         priority = 1000
     },
-    "askfiy/visual_studio_code"
+    "ThePrimeagen/vim-be-good"
 }
 
 lvim.use_icons = false
