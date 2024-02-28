@@ -44,20 +44,14 @@ alias ll="ls -lh --color=auto"
 
 if [[ -x "$(command -v doas)" ]]; then
   alias sudo="doas"
-else
-  echo "doas not found, alias disabled"
 fi
 
 if [[ -x "$(command -v cht.sh)" ]]; then
   alias cht="cht.sh"
-else
-  echo "cht.sh not found, alias disabled"
 fi
 
 if [[ -x "$(command -v bat)" ]]; then
   alias cat="bat --paging=never"
-else
-  echo "bat not found, alias disabled"
 fi
 
 mkcd ()
@@ -66,8 +60,16 @@ mkcd ()
     cd -P -- "$1"
 }
 
+runc()
+{
+  make "$1" && ./"$1"
+}
+
 # Enable libusb for adb
 export ADB_LIBUSB=1
+
+# Set SSH key for borgbackup
+export BORG_RSH="ssh -i $HOME/.ssh/id_ed25519_backups"
 
 # Load nvm
 export NVM_DIR="$HOME/.nvm"
